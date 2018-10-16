@@ -25,7 +25,7 @@ SECRET_KEY = 'thwkg#if2msn8bwaf1=i!=_t$-^73e8-8vqa-sktp9k^3_kul#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['vast-wildwood-30547.herokuapp.com','localhost']
 
 
 # Application definition
