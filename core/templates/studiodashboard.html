@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="{% static 'css/studiodashboard.css' %}" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Home</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form class="navbar-form navbar-left" role="search">
+        <!--button type="submit" class="btn btn-default" class="hidden-xs" class="add-project" data-toggle="modal" data-target="#add_project">Add Project</button-->
+          <li class="hidden-xs "><a href="#" class="add-project btn btn-default" data-toggle="modal" data-target="#add_project">Add Project</a></li>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>{{user.first_name}}</b> <span class="caret"></span></a>
+			<ul id="login-dp" class="dropdown-menu">
+				<li>
+					 <div class="row">
+							<div class="col-md-12">
+										<div class="form-group text-center">
+                                            <p align="justify">{{user.username}}</p>
+										</div>
+										<div class="form-group">
+											 <p align="justify">{{user.email}}</p>
+										</div>
+                                    <form class="login-form" method="post" action="{% url 'auth_logout' %}">
+                                            {% csrf_token %}
+										<div class="form-group">
+											 <button type="submit" class="btn btn-primary btn-block" onclick="{% url 'auth_logout' %}">Logout</button>
+										</div>
+                                    </form>
+							</div>
+					 </div>
+				</li>
+			</ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+		<div class="row">
+			<div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+				<ul class="event-list">
+                    {% for project in project_details_list %}
+					<li>
+						<time datetime="2014-07-20">
+							<span class="day">{{ project.day }}</span>
+							<span class="month">{{ project.month }}</span>
+							<span class="year">2014</span>
+							<span class="time">ALL DAY</span>
+						</time>
+						<div class="info">
+							<h2 class="title">{{ project.project_title }}</h2>
+							<p class="desc">{{ project.client_name }}</p>
+						</div>
+						<div class="social">
+							<ul>
+								<li class="facebook" style="width:33%;"><a href=/project_view/{{project.unique_id}}><span class="fa fa-facebook"></span></a></li>
+								<li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+								<li class="google-plus" style="width:33%;"><a href=/delete_project/{{project.unique_id}}><span class="fa fa-google-plus"></span></a></li>
+							</ul>
+						</div>
+					</li>
+                    {% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+    <!-- Modal -->
+    <div id="add_project" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+<script>
+    $(document).ready(function(){
+   $('[data-toggle="offcanvas"]').click(function(){
+       $("#navigation").toggleClass("hidden-xs");
+   });
+</script>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <form method="post" action="{% url 'add_project' %}" id="project_form">
+                    {% csrf_token %}
+                <div class="modal-header login-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Add Project</h4>
+                </div>
+                <div class="modal-body">
+                            <input type="text" placeholder="Project Title" name="title">
+                            <input type="text" placeholder="Client Name" name="name">
+                            <input type="email" placeholder="E-mail" name="mail">
+                            <input type="number" placeholder="Mobile Number" name="mobile">
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel" data-dismiss="modal">Close</button>
+                    <button type="submit" onclick="handleSubmit()" class="add-project" data-dismiss="modal">Save</button>
+                </div>
+                    </form>
+                <script>
+function handleSubmit () {
+    document.getElementById('project_form').submit();
+}
+</script>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

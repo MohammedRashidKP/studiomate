@@ -25,7 +25,7 @@ SECRET_KEY = 'thwkg#if2msn8bwaf1=i!=_t$-^73e8-8vqa-sktp9k^3_kul#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vast-wildwood-30547.herokuapp.com','localhost']
+ALLOWED_HOSTS = ['vast-wildwood-30547.herokuapp.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core.apps.CoreConfig',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +122,6 @@ STATIC_ROOT =  os.path.join(BASE_DIR, 'core\static')
 
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
